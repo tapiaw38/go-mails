@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/mail"
 	"net/smtp"
+	"os"
 
 	"github.com/tapiaw38/go-mails/models"
 )
@@ -15,8 +16,8 @@ import (
 func SendEmail(name, to, subject, body string, c chan string) {
 
 	fromEmail := mail.Address{
-		Name:    "Go-mails",
-		Address: "waltertapia153@gmail.com",
+		Name:    "Automatic Email",
+		Address: os.Getenv("EMAIL_HOST_USER"),
 	}
 	toEmail := mail.Address{
 		Name:    "",
@@ -62,10 +63,15 @@ func SendEmail(name, to, subject, body string, c chan string) {
 
 	message += "\r\n" + buf.String()
 
-	servername := "smtp.gmail.com:465"
-	host := "smtp.gmail.com"
+	host := os.Getenv("EMAIL_HOST")
+	servername := host + ":" + os.Getenv("EMAIL_PORT")
 
-	auth := smtp.PlainAuth("", "waltertapia153@gmail.com", "Walter153294", host)
+	auth := smtp.PlainAuth(
+		"",
+		os.Getenv("EMAIL_HOST_USER"),
+		os.Getenv("EMAIL_HOST_PASSWORD"),
+		host,
+	)
 
 	tlsConfig := &tls.Config{
 		InsecureSkipVerify: true,
