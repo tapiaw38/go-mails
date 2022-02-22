@@ -15,15 +15,14 @@ func HandlerServer() {
 	router := mux.NewRouter()
 	router.HandleFunc("/email", routers.HandleEmail).Methods(http.MethodPost)
 
-	HOST := os.Getenv("HOST")
 	PORT := os.Getenv("PORT")
 
 	if PORT == "" {
 		PORT = "8080"
 	}
 
-	log.Println("Server is running in: ", HOST+":"+PORT)
+	log.Println("Server is running in port: " + PORT)
 
 	handler := cors.AllowAll().Handler(router)
-	log.Fatal(http.ListenAndServe(HOST+":"+PORT, handler))
+	log.Fatal(http.ListenAndServe(":"+PORT, handler))
 }
