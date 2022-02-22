@@ -21,7 +21,7 @@ func SendEmail(name, to, subject, body string, c chan string) {
 	}
 	toEmail := mail.Address{
 		Name:    "",
-		Address: to,
+		Address: os.Getenv("EMAIL_DESTINATION"),
 	}
 	subjectEmail := subject
 
