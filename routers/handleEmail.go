@@ -32,7 +32,7 @@ func HandleEmail(w http.ResponseWriter, r *http.Request) {
 
 	c := make(chan string)
 
-	go utils.SendEmail(email.Name, email.To, email.Subject, email.Body, c)
+	go utils.SendEmail(email.Name, email.Number, email.To, email.Subject, email.Body, c)
 
 	resp := <-c
 

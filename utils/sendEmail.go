@@ -13,7 +13,7 @@ import (
 )
 
 // SendEmail sends an email
-func SendEmail(name, to, subject, body string, c chan string) {
+func SendEmail(name, number, to, subject, body string, c chan string) {
 
 	fromEmail := mail.Address{
 		Name:    "Automatic Email",
@@ -27,6 +27,7 @@ func SendEmail(name, to, subject, body string, c chan string) {
 
 	bodyEmail := models.Email{
 		Name:    name,
+		Number:  number,
 		To:      to,
 		Subject: subject,
 		Body:    body,
